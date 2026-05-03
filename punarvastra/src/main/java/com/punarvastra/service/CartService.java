@@ -1,4 +1,4 @@
-package com.punarvastra.controller.service;
+package com.punarvastra.service;
 
 import com.punarvastra.dao.ProductDao;
 import com.punarvastra.dao.ProductDaoImpl;
