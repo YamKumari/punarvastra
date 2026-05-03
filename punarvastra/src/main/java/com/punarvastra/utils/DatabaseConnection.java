@@ -1,4 +1,4 @@
-package com.purnarvastra.utils;
+package com.punarvastra.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
