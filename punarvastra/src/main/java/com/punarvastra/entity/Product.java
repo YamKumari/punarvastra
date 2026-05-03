@@ -1,5 +1,6 @@
 package com.punarvastra.entity;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -201,4 +202,5 @@ public class Product implements Serializable {
     public boolean isPubliclyVisible() {
         return "APPROVED".equals(listingStatus) && stock > 0;
     }
+
 }
