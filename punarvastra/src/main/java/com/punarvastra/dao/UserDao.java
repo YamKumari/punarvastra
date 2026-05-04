@@ -1,6 +1,7 @@
 package com.punarvastra.dao;
 
 import com.punarvastra.entity.User;
+import com.punarvastra.exception.DuplicateRecordException;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.punarvastra.controller;
 
 import com.punarvastra.entity.User;
+import com.punarvastra.service.OrderService;
 import com.punarvastra.utils.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,8 +13,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Authenticated user's order history with optional status filter.
+ */
 @WebServlet(name = "OrderHistoryServlet", urlPatterns = {"/orders"})
-public class OrderHistroryServlet extends HttpServlet {
+public class OrderHistoryServlet extends HttpServlet {
+
     private static final Logger LOG = Logger.getLogger(OrderHistoryServlet.class.getName());
     private final OrderService orderService = new OrderService();
 

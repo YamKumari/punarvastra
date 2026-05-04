@@ -1,6 +1,7 @@
 package com.punarvastra.controller;
 
 import com.punarvastra.entity.User;
+import com.punarvastra.service.ProductService;
 import com.punarvastra.utils.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,8 +14,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Seller view of own listings (pending / approved / rejected) and resubmit.
+ */
 @WebServlet(name = "MyListingsServlet", urlPatterns = {"/my-listings"})
-public class MyListingServlet extends HttpServlet {
+public class MyListingsServlet extends HttpServlet {
+
     private static final Logger LOG = Logger.getLogger(MyListingsServlet.class.getName());
     private final ProductService productService = new ProductService();
 
