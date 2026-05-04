@@ -9,11 +9,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 /**
  * Checkout and order history.
  */
 public class OrderService {
 
+=======
+public class OrderService {
+>>>>>>> 205e88e8df6190bf2a515edd1826764f5bb9aa4e
     private final OrderDao orderDao = new OrderDaoImpl();
     private final CartService cartService = new CartService();
 

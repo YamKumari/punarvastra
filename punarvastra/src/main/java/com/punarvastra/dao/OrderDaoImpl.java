@@ -7,6 +7,7 @@ import com.punarvastra.entity.Product;
 import com.punarvastra.utils.DatabaseConnection;
 
 import java.math.BigDecimal;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,8 @@ import java.util.Optional;
  */
 public class OrderDaoImpl implements OrderDao {
 
-    @Override
+
+   @Override
     public int insertOrderHeader(int userId, BigDecimal total, String address, String phone, String payment)
             throws SQLException {
         String sql = "INSERT INTO orders (user_id, total_amount, status, shipping_address, phone, payment_method) "
@@ -352,4 +354,5 @@ public class OrderDaoImpl implements OrderDao {
             }
         }
     }
+
 }
