@@ -2,6 +2,8 @@ package com.punarvastra.controller;
 
 import com.punarvastra.entity.Product;
 import com.punarvastra.entity.User;
+import com.punarvastra.service.CategoryService;
+import com.punarvastra.service.ProductService;
 import com.punarvastra.utils.ImageUtil;
 import com.punarvastra.utils.SessionUtil;
 import com.punarvastra.utils.ValidationUtil;
@@ -67,7 +69,7 @@ public class SellProductServlet extends HttpServlet {
                 if (real == null) {
                     throw new IOException("Cannot resolve /photos path.");
                 }
-                imageName = ImageUtil.saveProductImage(filePart, Path.of(real), submittedName);
+                imageName = ImageUtil.saveProductImage(filePart, submittedName);
             }
             Product p = new Product();
             p.setSellerId(u.getId());

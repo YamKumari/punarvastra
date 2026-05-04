@@ -3,6 +3,7 @@ package com.punarvastra.service;
 import com.punarvastra.dao.CategoryDao;
 import com.punarvastra.dao.CategoryDaoImpl;
 import com.punarvastra.entity.Category;
+import com.punarvastra.exception.ValidationException;
 
 import java.sql.SQLException;
 import java.util.List;
