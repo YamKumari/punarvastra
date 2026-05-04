@@ -1,16 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Acer
-  Date: 2026-05-03
-  Time: 7:18 pm
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:if test="${not empty flashSuccess}">
+    <div class="flash flash--success" role="status"><c:out value="${flashSuccess}"/></div>
+</c:if>
+<c:if test="${not empty flashError}">
+    <div class="flash flash--error" role="alert"><c:out value="${flashError}"/></div>
+</c:if>
