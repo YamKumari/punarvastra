@@ -3,6 +3,7 @@ package com.punarvastra.service;
 import com.punarvastra.dao.ProductDao;
 import com.punarvastra.dao.ProductDaoImpl;
 import com.punarvastra.entity.Product;
+import com.punarvastra.exception.ValidationException;
 import com.punarvastra.utils.PriceUtil;
 
 import java.math.BigDecimal;
