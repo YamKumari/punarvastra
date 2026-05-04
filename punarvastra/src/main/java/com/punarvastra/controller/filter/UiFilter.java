@@ -19,7 +19,7 @@ import java.io.IOException;
  * Attaches flash messages and cart / wishlist counts to every dynamic page request.
  */
 @WebFilter(filterName = "UiBootstrapFilter", urlPatterns = "/*")
-public class UiBootstrapFilter extends HttpFilter {
+public class UiFilter extends HttpFilter {
 
     private final CartService cartService = new CartService();
     private final WishlistService wishlistService = new WishlistService();

@@ -4,41 +4,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+/**
+ * Provides JDBC connections to the Punarvastra MySQL schema (XAMPP default).
+ */
+public final class DatabaseConnection {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/punarvastra";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/punarvastra?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
-    static {
+    private DatabaseConnection() {
+    }
+
+    /**
+     * Opens a new connection from the pool-less driver manager.
+     *
+     * @return live JDBC connection (caller must close)
+     * @throws SQLException if the database is unreachable or the JDBC driver is missing
+     */
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("MySQL Driver not found: " + e.getMessage());
+            throw new SQLException("MySQL JDBC driver not found.", e);
         }
-    }
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-    }
-
-    public static void closeConnection(Connection connection) {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            System.out.println("Error closing connection: " + e.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            Connection conn = DatabaseConnection.getConnection();
-            System.out.println("Database connected successfully!");
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("Connection failed: " + e.getMessage());
-        }
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

@@ -1,55 +1,63 @@
-package com.punarvastra.controller.filter;
+package com.punarvastra.utils;
 
-import com.punarvastra.service.CartService;
-import com.punarvastra.service.CategoryService;
-import com.punarvastra.service.WishlistService;
-import com.punarvastra.utils.RequestPaths;
-import com.punarvastra.utils.SessionUtil;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpFilter;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
 
 /**
- * Attaches flash messages and cart / wishlist counts to every dynamic page request.
+ * Remember-me username cookie (7 days, HTTP-only).
  */
-@WebFilter(filterName = "UiBootstrapFilter", urlPatterns = "/*")
-public class UiBootstrapFilter extends HttpFilter {
+public final class CookieUtil {
 
-    private final CartService cartService = new CartService();
-    private final WishlistService wishlistService = new WishlistService();
-    private final CategoryService categoryService = new CategoryService();
+    public static final String REMEMBER_USER = "pv_remember_user";
+    private static final int MAX_AGE_SEC = 7 * 24 * 60 * 60;
+    private static final String PATH = "/";
 
-    @Override
-    protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        if (RequestPaths.isStaticAsset(request)) {
-            chain.doFilter(request, response);
-            return;
+    private CookieUtil() {
+    }
+
+    /**
+     * Stores username in a long-lived cookie.
+     *
+     * @param response servlet response
+     * @param username login name
+     */
+    public static void setRememberUsername(HttpServletResponse response, String username) {
+        Cookie c = new Cookie(REMEMBER_USER, username != null ? username : "");
+        c.setMaxAge(MAX_AGE_SEC);
+        c.setPath(PATH);
+        c.setHttpOnly(true);
+        response.addCookie(c);
+    }
+
+    /**
+     * Clears the remember-me cookie.
+     *
+     * @param response servlet response
+     */
+    public static void clearRememberUsername(HttpServletResponse response) {
+        Cookie c = new Cookie(REMEMBER_USER, "");
+        c.setMaxAge(0);
+        c.setPath(PATH);
+        c.setHttpOnly(true);
+        response.addCookie(c);
+    }
+
+    /**
+     * Reads remembered username if present.
+     *
+     * @param request HTTP request
+     * @return username or null
+     */
+    public static String getRememberedUsername(HttpServletRequest request) {
+        if (request.getCookies() == null) {
+            return null;
         }
-        HttpSession session = request.getSession(true);
-        SessionUtil.getOrCreateCsrfToken(session);
-        String ok = SessionUtil.consumeFlashSuccess(session);
-        String err = SessionUtil.consumeFlashError(session);
-        if (ok != null) {
-            request.setAttribute("flashSuccess", ok);
+        for (Cookie c : request.getCookies()) {
+            if (REMEMBER_USER.equals(c.getName()) && c.getValue() != null && !c.getValue().isBlank()) {
+                return c.getValue();
+            }
         }
-        if (err != null) {
-            request.setAttribute("flashError", err);
-        }
-        try {
-            request.setAttribute("cartCount", cartService.totalItems(request));
-            request.setAttribute("wishCount", wishlistService.count(request));
-            request.setAttribute("navCategories", categoryService.listAll());
-        } catch (Exception ex) {
-            request.setAttribute("cartCount", 0);
-            request.setAttribute("wishCount", 0);
-        }
-        chain.doFilter(request, response);
+        return null;
     }
 }
