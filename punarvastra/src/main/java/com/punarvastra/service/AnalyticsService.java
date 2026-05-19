@@ -1,11 +1,13 @@
 package com.punarvastra.service;
 
+import com.punarvastra.dao.AnalyticsDao;
 import com.punarvastra.dao.OrderDao;
 import com.punarvastra.dao.OrderDaoImpl;
 import com.punarvastra.dao.ProductDao;
 import com.punarvastra.dao.ProductDaoImpl;
 import com.punarvastra.dao.UserDao;
 import com.punarvastra.dao.UserDaoImpl;
+import com.punarvastra.entity.WeeklyData;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ public class AnalyticsService {
     private final OrderDao orderDao = new OrderDaoImpl();
     private final ProductDao productDao = new ProductDaoImpl();
     private final UserDao userDao = new UserDaoImpl();
+    private final AnalyticsDao analyticsDao = new AnalyticsDao();
 
     public long countProducts() throws SQLException {
         return productDao.countAll();
@@ -59,5 +62,22 @@ public class AnalyticsService {
 
     public long pendingListingsCount() throws SQLException {
         return productDao.countByListingStatus("PENDING");
+    }
+
+    // NEW METHODS FOR CHARTS
+    public List<WeeklyData> getWeeklyOrdersCount() throws SQLException {
+        return analyticsDao.getWeeklyOrdersCount();
+    }
+
+    public List<WeeklyData> getWeeklyUserRegistrations() throws SQLException {
+        return analyticsDao.getWeeklyUserRegistrations();
+    }
+
+    public List<WeeklyData> getWeeklyProductListings() throws SQLException {
+        return analyticsDao.getWeeklyProductListings();
+    }
+
+    public List<WeeklyData> getWeeklyRevenue() throws SQLException {
+        return analyticsDao.getWeeklyRevenue();
     }
 }
