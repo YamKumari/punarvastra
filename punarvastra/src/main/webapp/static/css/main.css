@@ -1,13 +1,13 @@
 :root {
     --color-bg: #f8f5f0;
     --color-surface: #ffffff;
-    --color-primary: #2d4a3e;
-    --color-primary-hover: #1f3429;
-    --color-accent: #c97b5a;
+    --color-primary: #1e3a5f;      /* Deep navy blue */
+    --color-primary-hover: #152c48;  /* Darker navy */
+    --color-accent: #e67e22;         /* Orange accent */
     --color-text: #1a1a1a;
     --color-text-muted: #6b6b6b;
     --color-border: #e5e0d8;
-    --color-success: #2f7d52;
+    --color-success: #27ae60;
     --color-error: #c0392b;
     --color-warning: #d68910;
     --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
@@ -151,7 +151,7 @@ a:hover { text-decoration: underline; }
     border-radius: var(--radius);
     animation: slideDown 0.35s ease;
 }
-.flash--success { background: #e6f4ea; color: var(--color-success); border: 1px solid #b8dfc6; }
+.flash--success { background: #e6f4ea; color: var(--color-primary); border: 1px solid #b8dfc6; }
 .flash--error { background: #fdecea; color: var(--color-error); border: 1px solid #f5c2c0; }
 
 main { max-width: 1200px; margin: 0 auto; padding: 1rem; }
@@ -159,7 +159,7 @@ main.narrow { max-width: 720px; }
 .center-text { text-align: center; }
 
 .hero {
-    background: linear-gradient(120deg, #2d4a3e 0%, #3d5c4d 40%, #c97b5a 100%);
+    background: linear-gradient(120deg, #1e3a5f 0%, #2c5282 40%, #e67e22 100%);
     color: #fff;
     border-radius: calc(var(--radius) * 2);
     padding: 3rem 1.5rem;
@@ -242,7 +242,7 @@ main.narrow { max-width: 720px; }
 
 .data-table { width: 100%; border-collapse: collapse; background: var(--color-surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); }
 .data-table th, .data-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-border); text-align: left; }
-.data-table th { background: #eef2ef; }
+.data-table th { background: #e8f0f7; }
 
 .pill {
     display: inline-block;
@@ -250,7 +250,7 @@ main.narrow { max-width: 720px; }
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 600;
-    background: #eef2ef;
+    background: #e8f0f7;
 }
 .pill--PENDING { background: #fff3cd; color: #856404; }
 .pill--APPROVED { background: #d4edda; color: #155724; }
@@ -303,7 +303,7 @@ main.narrow { max-width: 720px; }
 .checkbox { display: flex; align-items: center; gap: 0.5rem; }
 
 .page--admin .admin-top {
-    background: #1a2e26;
+    background: #1e3a5f;
     color: #dfe8e3;
     display: flex;
     flex-wrap: wrap;

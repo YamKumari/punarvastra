@@ -14,7 +14,7 @@
     <section class="hero animate-fade">
         <div class="hero__content">
             <h1 class="hero__title">Renewed clothing for Nepal</h1>
-            <p class="hero__lead">Curated thrift finds from Kathmandu valley - fair prices, lower footprint.</p>
+            <p class="hero__lead">Curated thrift finds from Pokhara valley - fair prices, lower footprint.</p>
             <a class="btn btn--primary btn--lg" href="${pageContext.request.contextPath}/products">Browse catalogue</a>
         </div>
     </section>

@@ -20,5 +20,5 @@
             </ul>
         </div>
     </div>
-    <p class="site-footer__copy">&copy; <c:out value="${pageContext.request.serverName}"/> - coursework demo</p>
+    <p class="site-footer__copy">&copy; <c:out value="${pageContext.request.serverName}"/> - punarvastra</p>
 </footer>
