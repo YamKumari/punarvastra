@@ -10,18 +10,30 @@ import com.punarvastra.utils.ValidationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Seller flow: submit a new listing (pending admin approval).
+ */
 @WebServlet(name = "SellProductServlet", urlPatterns = {"/sell"})
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024, maxRequestSize = 6 * 1024 * 1024)
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2,   // 2MB
+        maxFileSize = 5 * 1024 * 1024,         // 5MB
+        maxRequestSize = 6 * 1024 * 1024       // 6MB
+)
 public class SellProductServlet extends HttpServlet {
+
     private static final Logger LOG = Logger.getLogger(SellProductServlet.class.getName());
+
     private final ProductService productService = new ProductService();
     private final CategoryService categoryService = new CategoryService();
 
@@ -42,8 +54,10 @@ public class SellProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
         HttpSession session = request.getSession();
         User u = SessionUtil.getCurrentUser(session);
+
         if (u == null || u.isAdmin()) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
@@ -53,24 +67,32 @@ public class SellProductServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/sell");
             return;
         }
+
         try {
             Part filePart = request.getPart("image");
-            String submittedName = filePart != null ? filePart.getSubmittedFileName() : null;
-            long size = filePart != null ? filePart.getSize() : 0;
-            String imageName = "placeholder.png";
-            if (filePart != null && size > 0) {
-                String ve = ValidationUtil.validateImageUpload(submittedName != null ? submittedName : "x.jpg", size);
-                if (ve != null) {
-                    SessionUtil.setFlashError(session, ve);
+            String imageName = "placeholder.png";   // default image
+
+            // Handle image upload
+            if (filePart != null && filePart.getSize() > 0) {
+                String submittedName = filePart.getSubmittedFileName();
+
+                // Validate image
+                String validationError = ValidationUtil.validateImageUpload(
+                        submittedName != null ? submittedName : "x.jpg",
+                        filePart.getSize()
+                );
+
+                if (validationError != null) {
+                    SessionUtil.setFlashError(session, validationError);
                     response.sendRedirect(request.getContextPath() + "/sell");
                     return;
                 }
-                String real = getServletContext().getRealPath("/photos");
-                if (real == null) {
-                    throw new IOException("Cannot resolve /photos path.");
-                }
+
+                // Save image using new ImageUtil (external folder)
                 imageName = ImageUtil.saveProductImage(filePart, submittedName);
             }
+
+            // Create Product
             Product p = new Product();
             p.setSellerId(u.getId());
             p.setTitle(request.getParameter("title"));
@@ -82,10 +104,13 @@ public class SellProductServlet extends HttpServlet {
             p.setImage(imageName);
             p.setStock(Integer.parseInt(request.getParameter("stock").trim()));
             p.setCategoryId(Integer.parseInt(request.getParameter("categoryId").trim()));
+
             productService.createSellerListing(p);
+
             SessionUtil.setFlashSuccess(session,
                     "Listing submitted. It will appear on the shop after admin approval.");
             response.sendRedirect(request.getContextPath() + "/my-listings");
+
         } catch (Exception ex) {
             LOG.log(Level.WARNING, "Sell POST", ex);
             SessionUtil.setFlashError(session,

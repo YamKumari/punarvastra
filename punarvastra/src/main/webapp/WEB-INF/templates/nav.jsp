@@ -2,7 +2,7 @@
 <nav class="site-nav" aria-label="Main">
     <button type="button" class="site-nav__toggle" id="navToggle" aria-controls="navPanel" aria-expanded="false">Menu</button>
     <ul class="site-nav__list" id="navPanel">
-        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All products</a></li>
         <c:forEach var="cat" items="${navCategories}">
             <li><a href="${pageContext.request.contextPath}/products?category=${cat.slug}"><c:out value="${cat.name}"/></a></li>
