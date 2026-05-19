@@ -27,8 +27,7 @@
             <div class="team-card">
                 <div class="team-card__image">
                     <img src="${pageContext.request.contextPath}/static/images/team/yam.jpg"
-                         alt="Yam Kumari Shrestha"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Yam+Kumari+Shrestha&background=1e3a5f&color=fff&size=120'">
+                         alt="Yam Kumari Shrestha">
                 </div>
                 <h3 class="team-card__name">Yam Kumari Shrestha</h3>
                 <p class="team-card__role">Admin Dashboard & MVC Architecture</p>
@@ -38,9 +37,8 @@
             <!-- Member 2: Laxmi Thapa -->
             <div class="team-card">
                 <div class="team-card__image">
-                    <img src="${pageContext.request.contextPath}/static/images/team/laxmi.jpg"
-                         alt="Laxmi Thapa"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Laxmi+Thapa&background=1e3a5f&color=fff&size=120'">
+                    <img src="${pageContext.request.contextPath}/static/images/team/laxmi.png"
+                         alt="Laxmi Thapa">
                 </div>
                 <h3 class="team-card__name">Laxmi Thapa</h3>
                 <p class="team-card__role">Database & Product Listing</p>
@@ -50,9 +48,8 @@
             <!-- Member 3: Smriti Shahi -->
             <div class="team-card">
                 <div class="team-card__image">
-                    <img src="${pageContext.request.contextPath}/static/images/team/smriti.jpg"
-                         alt="Smriti Shahi"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Smriti+Shahi&background=1e3a5f&color=fff&size=120'">
+                    <img src="${pageContext.request.contextPath}/static/images/team/smriti.png"
+                         alt="Smriti Shahi">
                 </div>
                 <h3 class="team-card__name">Smriti Shahi</h3>
                 <p class="team-card__role">Cart, Wishlist, Orders & Seller Features</p>
@@ -62,9 +59,8 @@
             <!-- Member 4: Mahima Bhattarai -->
             <div class="team-card">
                 <div class="team-card__image">
-                    <img src="${pageContext.request.contextPath}/static/images/team/mahima.jpg"
-                         alt="Mahima Bhattarai"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Mahima+Bhattarai&background=1e3a5f&color=fff&size=120'">
+                    <img src="${pageContext.request.contextPath}/static/images/team/mahima.png"
+                         alt="Mahima Bhattarai">
                 </div>
                 <h3 class="team-card__name">Mahima Bhattarai</h3>
                 <p class="team-card__role">Authentication, Security & Filters</p>
@@ -74,9 +70,8 @@
             <!-- Member 5: Romiya Shahi -->
             <div class="team-card">
                 <div class="team-card__image">
-                    <img src="${pageContext.request.contextPath}/static/images/team/romiya.jpg"
-                         alt="Romiya Shahi"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Romiya+Shahi&background=1e3a5f&color=fff&size=120'">
+                    <img src="${pageContext.request.contextPath}/static/images/team/romiya.png"
+                         alt="Romiya Shahi">
                 </div>
                 <h3 class="team-card__name">Romiya Shahi</h3>
                 <p class="team-card__role">UI/UX Design & Frontend</p>
