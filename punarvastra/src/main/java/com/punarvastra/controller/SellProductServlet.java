@@ -38,6 +38,20 @@ public class SellProductServlet extends HttpServlet {
     private final CategoryService categoryService = new CategoryService();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            request.setAttribute("pageTitle", "Sell");
+            request.setAttribute("categories", categoryService.listAll());
+            request.setAttribute("csrf", SessionUtil.getOrCreateCsrfToken(request.getSession(true)));
+            ViewForwarder.forward(request, response, "sell-product.jsp");
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "Sell GET", ex);
+            throw new ServletException(ex);
+        }
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
@@ -48,7 +62,6 @@ public class SellProductServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-
         if (!SessionUtil.isValidCsrf(session, request.getParameter("csrf"))) {
             SessionUtil.setFlashError(session, "Invalid session token.");
             response.sendRedirect(request.getContextPath() + "/sell");
