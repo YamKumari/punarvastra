@@ -21,7 +21,7 @@
             <img src="${pageContext.request.contextPath}/static/images/placeholder.svg" alt="" class="wishlist-row__img"/>
           </c:when>
           <c:otherwise>
-            <img src="${pageContext.request.contextPath}/photos/<c:out value='${p.image}'/>" alt="" class="wishlist-row__img"/>
+            <img src="${pageContext.request.contextPath}/uploads/${p.image}" alt="" class="wishlist-row__img"/>
           </c:otherwise>
         </c:choose>
         <div>
